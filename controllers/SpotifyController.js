@@ -117,7 +117,6 @@ app.get('/get-album-data-for-artist', function (request, response) {
 					spotifyApi.getAudioFeaturesForTracks(trackIds)
 					.then(function(data) {
 
-						JSON.artist = "blubb"
 						// for every audio feature
 						data.body.audio_features.forEach(featureElement => {
 							// get the correct song in the albumInformation
