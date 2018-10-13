@@ -47,4 +47,17 @@
 	font-weight: bold;
 	color: #1E3264;
   }
-  
+	
+section:first-child button{
+	color: #000;
+	border: none;
+}
+#trackSearch{
+	color: #000;
+}
+
+.track-result{
+	display: inline-block;
+	width: 300px;
+	word-break: break-word;
+}

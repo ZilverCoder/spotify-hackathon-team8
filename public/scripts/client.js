@@ -2,26 +2,30 @@
 // run by the browser each time your view template is loaded
 
 $(function() {
-    
-	$.get('/search-track', function(data) {
-	  // "Data" is the object we get from the API. See server.js for the function that returns it.
-	  console.group('%cResponse from /search-track', 'color: #F037A5; font-size: large');
-	  console.log(data);
-	  console.groupEnd();
-	  
-	  // Display the track name
-	  var trackName = $('<h3><a href="' + data.external_urls.spotify + '">' + data.name + '</a></h3>');
-	  var artistName = $('<h3>' + data.artists[0].name + '</h3>');
-	  trackName.appendTo('#search-track-container');
-	  artistName.appendTo('#search-track-container');
-	  
-	  // Display the album art
-	  var img = $('<img/>');
-	  img.attr('src', data.album.images[0].url);
-	  img.appendTo('#search-track-container');
+		
+	document.addEventListener("click", function(){
+		var track = document.getElementById("search-track-container").value;
+		
+		$.get(`spotify/search-track?track=${track}`, function(data) {
+			// "Data" is the object we get from the API. See server.js for the function that returns it.
+			console.group('%cResponse from /search-track', 'color: #F037A5; font-size: large');
+			console.log(data);
+			console.groupEnd();
+			
+			// Display the track name
+			var trackName = $('<h3><a href="' + data.external_urls.spotify + '">' + data.name + '</a></h3>');
+			var artistName = $('<h3>' + data.artists[0].name + '</h3>');
+			trackName.appendTo('#search-track-container');
+			artistName.appendTo('#search-track-container');
+			
+			// Display the album art
+			var img = $('<img/>');
+			img.attr('src', data.album.images[0].url);
+			img.appendTo('#search-track-container');
+		});
 	});
 	
-	$.get('/category-playlists', function(data) {
+	$.get('spotify/category-playlists', function(data) {
 	  // "Data" is the object we get from the API. See server.js for the function that returns it.
 	  console.group('%cResponse from /category-playlists', 'color: #F037A5; font-size: large');
 	  console.log(data);
@@ -35,7 +39,7 @@ $(function() {
 	  });
 	});
 	
-	$.get('/audio-features', function(data) {
+	$.get('spotify/audio-features', function(data) {
 	  // "Data" is the object we get from the API. See server.js for the function that returns it.
 	  console.group('%cResponse from /audio-features', 'color: #F037A5; font-size: large');
 	  console.log(data);
@@ -53,7 +57,7 @@ $(function() {
 	  });
 	});
 	
-	$.get('/artist', function(data) {
+	$.get('spotify/artist', function(data) {
 	  // "Data" is the object we get from the API. See server.js for the function that returns it.
 	  console.group('%cResponse from /artist', 'color: #F037A5; font-size: large');
 	  console.log(data);
@@ -75,7 +79,7 @@ $(function() {
 	  });
 	});
 	
-	$.get('/artist-top-tracks', function(data) {
+	$.get('spotify/artist-top-tracks', function(data) {
 	  // "Data" is the object we get from the API. See server.js for the function that returns it.
 	  console.group('%cResponse from /artist-top-tracks', 'color: #F037A5; font-size: large');
 	  console.log(data);

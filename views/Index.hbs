@@ -1,14 +1,20 @@
     <header>
       <h1>Spotify API Playground</h1>
-      <a class="pull-right" href="https://glitch.com/edit/#!/spotify-playground">
-        <button class="btn btn-lg btn-primary">Get started</button>
-      </a>
     </header>
 
     <main>
       
       <section style="background-color:#F573A0;color:white;">
         <h2>Search for a Track</h2>
+        <input type="text" placeholder="Search for a track" id="trackSearch" 
+                          value="1, 2, 3" data-bind="value: trackSearch">
+        <button data-bind="click: searchTrack">Search</button><br />
+        <!--ko foreach: tracks-->
+          <div class="track-result">
+            <img alt="album cover" data-bind="attr: { src: imageUrl }">
+            <h3 data-bind="text: albumName" style="text-align: center;"></h3>
+          </div>
+        <!--/ko-->
         <div id="search-track-container"></div>
       </section>
       
@@ -33,11 +39,4 @@
       </section>
       
     </main>
-
-    <footer>
-      <a href="https://glitch.com/edit/#!/spotify-playground">
-        <button class="btn btn-lg btn-primary">Get started</button>
-      </a>
-      <a href="https://twitter.com/imariari"><p>Made by Arielle Vaniderstine</p></a>
-    </footer>
 
