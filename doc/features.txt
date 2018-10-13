@@ -1,0 +1,27 @@
+Main Idea: Show the progression of an artist's album's feature(s) over the course of the years.
+
+- Search for an artist by it's name
+	// - Pick the first one that we get back
+	- Allow the user to pick from the response list (limit:  3-5 tbd)
+- User can toggle the visibility of a feature in the graph
+- Graph can show as many as 3 features at a time (Value tbd)
+- The albums will be shown on the  timeline spaced out as by their release date rather than equal spacing
+	- (optional) Allow toggle for equal spacing
+- Somehow mark the most popular album
+- Somehow display the tracks of an album
+	- (optional) Highlight the most popular song
+- The x axis will show the release date
+- The y axis will show the value.
+	-  The y axis label will represent the value in words (not danceable, very danceable...)
+- (optional) Allow BPM as a feature and scale the other values accordingly 
+- A datapoint in the graph will be shown as a thumbnail of the cover art
+- (Hovering a datapoint will show the larger cover art
+	- Also all the other features will be shown while hovering
+	- (optional) toggle features
+	-  The feature description will represent the value in words (not danceable, very danceable...) but also as the correct numerical value)
+
+- There should be a possibility on showing the feature values for each album
+
+- (optional) Showdown between two artists as a completely different functionality
+	- (optional) using showdown should disable the selection of multiple features
+
