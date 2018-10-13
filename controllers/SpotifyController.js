@@ -55,19 +55,31 @@ function removeSpecialEditions(albums) {
 // Search artists whose name contains 'Love'
 app.get('/get-artists-from-name' , function (request, response) {
 	var artistName = request.query.artistName;
-	response = {};
+
 	spotifyApi.searchArtists(artistName)
 		.then(function(data) {
-			response.artist = [];
+			var responseData = [];
 			var items = data.body.artists.items;
-
+			
       // loop through top artists
 			for (var i = 0; i < items.length ; i++) {
-				response.artist[i] = {"name" : items[i].name, "image" : items[i].images}
+				var responseArtist = {image: {}};
+				if (items[i].images.length == 0) {
+					responseArtist.image.url = "https://upload.wikimedia.org/wikipedia/commons/5/5f/Grey.PNG";
+				} else {
+					responseArtist.image = items[i].images[1];
+				}
+				responseArtist.name = items[i].name;
+				responseArtist.id = items[i].id;
+
+				responseData.push(responseArtist);
 				var nrShownItems = 2;
-				if (i === nrShownItems) { break; }
+				if (i === nrShownItems) {
+					response.send(responseData);
+				}
 				// more statements
-			 }
+			}
+			response.send(responseData);
 		}, function(err) {
 			console.error(err);
 		}

@@ -19,14 +19,14 @@
       </div>
     </div>
 
-      <div class="artist-result" data-bind="foreach: searchResult" style="width: 100%; padding-top=100px; display: flex; justify-content: space-between;">
-        <div style="display: inline-block; width=300px">
-          <a href="/chart/result">
-            <img alt="artist image" data-bind="attr: { src: imageUrl }">
-          </a>
-          <h3 data-bind="text: artistName" style="text-align: center;"></h3>
-        </div>
+    <div class="artist-result" data-bind="foreach: searchResult" style="width: 100%; padding-top=100px; display: flex; justify-content: space-between;">
+      <div style="display: inline-block; width=300px">
+        <a href="/chart/result">
+          <img alt="artist image" data-bind="attr: { src: imageUrl }">
+        </a>
+        <h3 data-bind="text: artistName" style="text-align: center;"></h3>
       </div>
+    </div>
     
     </div>
     <div id="search-artists-container"></div>
