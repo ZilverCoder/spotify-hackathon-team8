@@ -33,13 +33,13 @@ app.use(express.static(path.join(__dirname + '/node_modules')));
 //-------------------------------------------------------------//
 
 var controllers = {
-	SpotifyCalls: require('./controllers/SpotifyController'),
-	ChartController: require('./controllers/ChartController')
+	SpotifyCalls: require('./controllers/SpotifyController')
+	//ChartController: require('./controllers/ChartController')
 }
 
 
 app.get('/', function(req, res, next){
-    res.render('Index');
+    res.render('text');
 });
 
 app.get('/result', function(req, res, next){
@@ -48,7 +48,7 @@ app.get('/result', function(req, res, next){
 
 
 app.use('/spotify', controllers.SpotifyCalls);
-app.use('/chart', controllers.ChartController);
+//app.use('/chart', controllers.ChartController);
 
 //-------------------------------------------------------------//
 //------------------------ WEB SERVER -------------------------//

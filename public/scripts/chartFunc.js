@@ -5,29 +5,36 @@ cloud.src = 'https://i.ytimg.com/vi/pQMyOFHhS2k/hqdefault.jpg';
 cloud.height = 150;
 cloud.width = 150;
 
-var current = new Date();
-var past = current.setFullYear(1853);
-var newPoint = current.setFullYear(1975);
+var allAlbumsArray = [];
+var albumsForChart = {};
 
-var testArray = [];
-var albumForChart = [];
-
-var data = $.get(`spotify/get-album-data-for-artist?artistId=0oSGxfWSnnOXhD2fKuz2Gy`, function(data) {
+var data = $.get(`spotify/get-album-data-for-artist?artistId=2piHiUbXwUNNIvYyIOIUKt`, function(data) {
 	// "Data" is the object we get from the API. See server.js for the function that returns it.
 	console.group('%cResponse from /search-track', 'color: #F037A5; font-size: large');
 	console.log(data);
 	console.groupEnd();
-	$.each(data, function(index, track){
-		testArray.push(new Album(track.releaseDate, track.images, track.features.valence, track.name));
-		albumForChart.push(new AlbumForChart(track.releaseDate, this.features.valence));
+	$.each(data, function(index, album){
+		allAlbumsArray.push(new Album(album.releaseDate, album.images, album.features, album.name));
+		for (var feature in album.features) {
+			if (["loudness", "tempo", "key"].includes(feature)) {
+				continue;
+			}
+			try {
+				albumsForChart[feature].length
+			} catch (TypeError) {
+				albumsForChart[feature] = [];
+			}
+				
+			albumsForChart[feature].push(new AlbumForChart(album.releaseDate, album.features[feature], feature));
+		}
 	});
 });
 
-function Album(year, imageObject, attr, title){
+function Album(year, imageObject, features, title){
 	this.year = year;
 	this.imgUrl = imageObject.src;
 	this.imageObj = imageObj(imageObject);
-	this.attr = attr.toFixed(2);
+	this.features = features;
 	this.title = title;
 }
 
@@ -39,9 +46,10 @@ function imageObj(imgUrl){
 	return temp;
 }
 
-function AlbumForChart(year, attr, img){
+function AlbumForChart(year, feature, label){
 	this.x = year;
-	this.y = attr.toFixed(2);
+	this.y = feature.toFixed(2);
+	this.label = label;
 }
 
 $.when(data).done(function(){
@@ -52,6 +60,7 @@ $.when(data).done(function(){
 			var tooltipEl = $('#album')[0];
 			var albumCover = $('.info--cover');
 			var albumTitle = $('.info--title');
+			var subtext = $('.info--subtext');
 			//IF ELEMENT DOES NOT EXIST
 			/*if (!tooltipEl) {
 				tooltipEl = document.createElement('div');
@@ -84,11 +93,18 @@ $.when(data).done(function(){
 				var bodyLines = tooltip.body.map(getBody);
 				
 				titleLines.forEach(function(title) {
-					testArray.forEach(album =>  {
+					allAlbumsArray.forEach(album =>  {
 						
 						if (album.year == tooltip.title) {
 							albumTitle.text(album.title);
 							$('.album--cover').css('background','url('+album.imageObj.src+')');
+							$('.album--cover').css('background-origin','content-box');
+							$('.album--cover').css('background-size','cover');
+							
+							for (var feature in album.features) {
+								// add features to table 
+								// album.features[feature] ...
+							}
 						}
 					})
 				});
@@ -120,7 +136,8 @@ $.when(data).done(function(){
 			//tooltipEl.style.padding = tooltip.yPadding + 'px ' + tooltip.xPadding + 'px';
 		};
 	//#endregion
-	albumForChart.sort(function(a, b) {
+	for(var feature in albumsForChart) {
+		albumsForChart[feature].sort(function(a, b) {
 		var nameA = a.x;
 		var nameB = b.x;
 		if (nameA < nameB) {
@@ -130,21 +147,40 @@ $.when(data).done(function(){
 		  return 1;
 		}
 		return 0;
-	});
+		});
+	}
+
+	var colors = {
+		"danceability": "#FF0000",
+		"energy": "#CC6600",
+		"mode": "#00CC00",
+		"speechiness": "#00CCCC",
+		"acousticness": "#0000CC",
+		"instrumentalness": "#6600CC",
+		"liveness": "#CC00CC",
+		"valence": "#CC0066",
+	};
+
+	var chartDatasets = [];
+
+	for (var feature in albumsForChart) {
+		console.log(albumsForChart[feature]);
+		chartDatasets.push({
+			data: albumsForChart[feature],
+			label: feature,
+			backgroundColor: 'rgba(0, 0, 0, 0)',
+			borderColor: colors[feature],
+			pointHoverBorderColor: '#000',
+			hitRadius: 15
+		});
+	}
+	console.log(Object.keys(albumsForChart));
 	Chart.defaults.global.defaultFontColor = "#fff";
 	var myChart = new Chart(ctx, {
 		type: 'line',
 		data: {
-			labels: ['Album 1', 'Album 2', 'Album 3'],
-			datasets: [{
-				data: albumForChart,
-				backgroundColor: 'rgba(0, 0, 0, 0)',
-				borderColor: 'rgba(255,99,132,1)',
-				//pointStyle: testArray[0].imageObj,
-				pointHoverBorderColor: '#000',
-				hitRadius: 15,
-				//pointRadius: 80,
-			}]
+			//labels: Object.keys(albumsForChart),
+			datasets: chartDatasets
 		},
 		options: {
 			scales: {
@@ -153,7 +189,6 @@ $.when(data).done(function(){
 						beginAtZero: true,
 						min: 0,
 						max: 1,
-						yAxisID: 'happines-index'
 					},
 				}],
 		
@@ -171,6 +206,5 @@ $.when(data).done(function(){
 			
 			}
 		}		
-		});
+	});
 });
-
