@@ -29,6 +29,18 @@ var app = express();
 //------------------------- API CALLS -------------------------//
 //-------------------------------------------------------------//
 
+app.get('/spotify/get-album-data-for-artist', function (request, response) {
+	var artistId = request.query.artistId;
+	console.log("Hello there");
+	console.log("General Kenobi");
+	spotifyApi.getArtistAlbums(artist)
+  .then(function(data) {
+		console.log(data);
+  }, function(err) {
+    console.error(err);
+  });
+});
+/*
 app.get('/search-track', function (request, response) {
 	var track = request.query.track;
 
@@ -100,6 +112,6 @@ app.get('/category-playlists', function (request, response) {
 	  }, function(err) {
 		console.error(err);
 	  });
-  });
+  });*/
   
 module.exports = app;
