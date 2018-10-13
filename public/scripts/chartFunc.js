@@ -5,14 +5,20 @@ cloud.src = 'https://i.ytimg.com/vi/pQMyOFHhS2k/hqdefault.jpg';
 cloud.height = 150;
 cloud.width = 150;
 
+let urlParams = new URLSearchParams(window.location.search);
+let myParam = urlParams.get('artistId');
+
+console.log(myParam);
+
 var allAlbumsArray = [];
 var albumsForChart = {};
 
-var data = $.get(`spotify/get-album-data-for-artist?artistId=2piHiUbXwUNNIvYyIOIUKt`, function(data) {
+var data = $.get(`spotify/get-album-data-for-artist?artistId=${myParam}`, function(data) {
 	// "Data" is the object we get from the API. See server.js for the function that returns it.
-	console.group('%cResponse from /search-track', 'color: #F037A5; font-size: large');
+	/*console.group('%cResponse from /search-track', 'color: #F037A5; font-size: large');
 	console.log(data);
-	console.groupEnd();
+	console.groupEnd();*/
+
 	$.each(data, function(index, album){
 		allAlbumsArray.push(new Album(album.releaseDate, album.images, album.features, album.name));
 		for (var feature in album.features) {
@@ -168,6 +174,7 @@ $.when(data).done(function(){
 			data: albumsForChart[feature],
 			label: feature,
 			backgroundColor: 'rgba(255, 255, 255, 0)',
+			pointRadius: 25,
 			borderColor: colors[feature],
 			pointHoverBorderColor: '#000',
 			hitRadius: 15

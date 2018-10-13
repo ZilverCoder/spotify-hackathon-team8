@@ -157,7 +157,6 @@ app.get('/get-album-data-for-artist', function (request, response) {
 
 						responseData[albumInformation.id] = albumInformation;
 						if(++count == cleanedAlbums.length) {
-							console.log(responseData);
 							response.send(responseData);
 							
 						}

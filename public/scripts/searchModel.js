@@ -8,7 +8,18 @@ var searchModel = function(){
 		this.artistName = artistName;
 		this.imageUrl = imageUrl;
 	}
-	
+	ko.bindingHandlers.enterKey = {
+		init: function (element, valueAccessor, allBindingsAccessor, data, bindingContext) {
+			var wrappedHandler = function (data, event) {
+				if (event.keyCode === 13)
+					valueAccessor().call(this, data, event);
+			};
+			var newValueAccessor = function () {
+				return { keyup: wrappedHandler };
+			};
+			ko.bindingHandlers.event.init(element, newValueAccessor, allBindingsAccessor, data, bindingContext);
+		}
+	};
 	self.searchResult = ko.observableArray();
 	self.searchBoxVal = ko.observable();
 

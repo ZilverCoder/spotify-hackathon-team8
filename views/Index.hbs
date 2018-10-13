@@ -12,7 +12,7 @@
     <div style="width: 50%; margin: 0 auto; padding-bottom: 100px">
       <h2 style="text-align: center;">Search for an Artist</h2>
       <div style="width: 50%; margin: 0 auto;" class="text-center">
-        <input  type="text" placeholder="Search for an Artist" id="artistSearch" data-bind="value: searchBoxVal" class="form-control"> <br>
+        <input  type="text" placeholder="Search for an Artist" id="artistSearch" data-bind="value: searchBoxVal, enterKey: searchArtists" class="form-control"> <br>
         <button type="button" style="display: inline-block" class="btn btn-info" data-bind="click: searchArtists">
           <span class="glyphicon glyphicon-search"></span> Search
         </button>
@@ -21,7 +21,7 @@
 
     <div class="artist-result" data-bind="foreach: searchResult" style="width: 100%; padding-top=100px; display: flex; justify-content: space-between;">
       <div style="display: inline-block; width=300px">
-        <a href="/chart/result">
+        <a data-bind="attr: { href: '/chart?artistId=' + artistId }">
           <img alt="artist image" data-bind="attr: { src: imageUrl }">
         </a>
         <h3 data-bind="text: artistName" style="text-align: center;"></h3>
