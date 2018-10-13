@@ -25,6 +25,7 @@ var data = $.get(`spotify/get-album-data-for-artist?artistId=0oSGxfWSnnOXhD2fKuz
 
 function Album(year, imageObject, attr, title){
 	this.year = year;
+	this.imgUrl = imageObject.src;
 	this.imageObj = imageObj(imageObject);
 	this.attr = attr.toFixed(2);
 	this.title = title;
@@ -38,7 +39,7 @@ function imageObj(imgUrl){
 	return temp;
 }
 
-function AlbumForChart(year, attr){
+function AlbumForChart(year, attr, img){
 	this.x = year;
 	this.y = attr.toFixed(2);
 }
@@ -46,6 +47,7 @@ function AlbumForChart(year, attr){
 $.when(data).done(function(){
 	//#region Custom Tooltip
 		var customTooltips = function(tooltip) {
+			
 			// Tooltip Element
 			var tooltipEl = $('#album')[0];
 			var albumCover = $('.info--cover');
@@ -80,9 +82,15 @@ $.when(data).done(function(){
 			if (tooltip.body) {
 				var titleLines = tooltip.title || [];
 				var bodyLines = tooltip.body.map(getBody);
-
+				
 				titleLines.forEach(function(title) {
-					albumTitle.text('Her');
+					testArray.forEach(album =>  {
+						
+						if (album.year == tooltip.title) {
+							albumTitle.text(album.title);
+							$('.album--cover').css('background','url('+album.imageObj.src+')');
+						}
+					})
 				});
 
 				bodyLines.forEach(function(body, i) {
