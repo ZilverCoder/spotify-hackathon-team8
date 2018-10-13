@@ -14,20 +14,21 @@ var searchModel = function(){
 
 	self.searchArtists = ko.pureComputed({
 		read: function () {
-			//self.searchResult([]);
-			return self.searchResult(); // 'fetched' from an array.
+			return self.searchResult();
 		},
 		write: function (value) {
 			$.get(`spotify/get-artists-from-name?artistName=${self.searchBoxVal()}`, function(data) {
 				// "Data" is the object we get from the API. See server.js for the function that returns it.
 				
-				self.searchResult([]);
+				result = []
 				console.group('%cResponse from /get-artist-from-name', 'color: #F037A5; font-size: large');
 				console.table(data);
 				console.groupEnd();
 				data.forEach( artist => {
-					self.searchResult().push(new Artist(artist.id, artist.name, artist.image.url));
+					result.push(new Artist(artist.id, artist.name, artist.image.url));
 				});
+				console.log(result);
+				self.searchResult(result);
 			});
 		},
 		owner: self
