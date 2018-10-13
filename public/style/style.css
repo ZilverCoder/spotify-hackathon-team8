@@ -87,7 +87,7 @@ section:first-child button{
 
 .album {
 	opacity: 0;
-	position: absolute;
+	position: relative;
 	background: #3a3a3a;
 	width: 240px;
 	height: 300px;

@@ -128,8 +128,8 @@ $.when(data).done(function(){
 
 			// Display, position, and set styles for font
 			tooltipEl.style.opacity = 1;
-			tooltipEl.style.left = positionX + tooltip.caretX - 100 + 'px';
-			tooltipEl.style.top = positionY + tooltip.caretY + 'px';
+			//tooltipEl.style.left = positionX + tooltip.caretX - 100 + 'px';
+			//tooltipEl.style.top = positionY + tooltip.caretY + 'px';
 			//tooltipEl.style.fontFamily = tooltip._bodyFontFamily;
 			//tooltipEl.style.fontSize = tooltip.bodyFontSize + 'px';
 			//tooltipEl.style.fontStyle = tooltip._bodyFontStyle;
@@ -168,13 +168,13 @@ $.when(data).done(function(){
 		chartDatasets.push({
 			data: albumsForChart[feature],
 			label: feature,
-			backgroundColor: 'rgba(0, 0, 0, 0)',
+			backgroundColor: 'rgba(255, 255, 255, 0)',
 			borderColor: colors[feature],
 			pointHoverBorderColor: '#000',
 			hitRadius: 15
 		});
 	}
-	console.log(Object.keys(albumsForChart));
+	
 	Chart.defaults.global.defaultFontColor = "#fff";
 	var myChart = new Chart(ctx, {
 		type: 'line',
@@ -183,6 +183,7 @@ $.when(data).done(function(){
 			datasets: chartDatasets
 		},
 		options: {
+			responsive: true,
 			scales: {
 				yAxes: [{
 					ticks: {
@@ -197,14 +198,19 @@ $.when(data).done(function(){
 					distribution: 'linear'
 				}]
 			},
+			hover: {
+				mode: 'nearest',
+				intersect: true
+			},
 			tooltips: {
 				// Disable the on-canvas tooltip
 				enabled: false,
 				mode: 'index',
 				position: 'nearest',
-				custom: customTooltips
+				custom: customTooltips,
+				intersect: false
 			
 			}
-		}		
+		}	
 	});
 });
