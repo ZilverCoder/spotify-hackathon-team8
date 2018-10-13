@@ -58,7 +58,6 @@ $.when(data).done(function(){
 			
 			// Tooltip Element
 			var tooltipEl = $('#album')[0];
-			var albumCover = $('.info--cover');
 			var albumTitle = $('.info--title');
 			var subtext = $('.info--subtext');
 			//IF ELEMENT DOES NOT EXIST
@@ -100,11 +99,11 @@ $.when(data).done(function(){
 							$('.album--cover').css('background','url('+album.imageObj.src+')');
 							$('.album--cover').css('background-origin','content-box');
 							$('.album--cover').css('background-size','cover');
-							
+							var featureText = "";
 							for (var feature in album.features) {
-								// add features to table 
-								// album.features[feature] ...
+								featureText += feature + ": " + album.features[feature].toFixed(2) + "\n";
 							}
+							subtext.text(featureText);
 						}
 					})
 				});
