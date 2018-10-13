@@ -8,3 +8,21 @@ Server: give the client the search results for that particular query
 Client: Server, give me the album data
 Server: I will now get all the albums for this artist, then get all the tracks for each album and average out the feature values. Here is the data you requested.
 Client: Thank you very much
+
+
+Album {
+	features {
+		<See Spotify Info>
+	}
+	songs [
+		{
+			name
+			trackId
+			popularity
+		},
+	]
+	name
+	artist
+	releaseDate
+	averagedPopularity
+}
