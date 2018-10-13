@@ -8,19 +8,12 @@
 	box-sizing: border-box;
   }
   
-<<<<<<< HEAD
-  body {
-	padding: 40px 0;
-	background: #00304F;
-  }
-=======
 	body {
 		background-color:#00304F;
 		padding: 40px 0;
 		color:#F037A5;
 	}
 	
->>>>>>> origin/master
   
   header {
 	padding: 10px 40px;
