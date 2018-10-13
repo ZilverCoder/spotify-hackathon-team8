@@ -51,6 +51,30 @@ function removeSpecialEditions(albums) {
 //------------------------- API CALLS -------------------------//
 //-------------------------------------------------------------//
 
+
+// Search artists whose name contains 'Love'
+app.get('/get-artists-from-name' , function (request, response) {
+	var artistName = request.query.artistName;
+	response = {};
+	spotifyApi.searchArtists(artistName)
+		.then(function(data) {
+			response.artist = [];
+			var items = data.body.artists.items;
+
+      // loop through top artists
+			for (var i = 0; i < items.length ; i++) {
+				response.artist[i] = {"name" : items[i].name, "image" : items[i].images}
+				var nrShownItems = 2;
+				if (i === nrShownItems) { break; }
+				// more statements
+			 }
+		}, function(err) {
+			console.error(err);
+		}
+		);
+	});
+
+
 // get the accumulated data for an artist
 // including the averaged 
 app.get('/get-album-data-for-artist', function (request, response) {
@@ -93,7 +117,6 @@ app.get('/get-album-data-for-artist', function (request, response) {
 					spotifyApi.getAudioFeaturesForTracks(trackIds)
 					.then(function(data) {
 
-						JSON.artist = "blubb"
 						// for every audio feature
 						data.body.audio_features.forEach(featureElement => {
 							// get the correct song in the albumInformation
