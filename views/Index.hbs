@@ -2,20 +2,20 @@
       <h1>Spotify API Playground</h1>
     </header>
 
-    <main>
+    <!--<main>
       
       <section style="background-color:#F573A0;color:white;">
         <h2>Search for a Track</h2>
         <input type="text" placeholder="Search for a track" id="trackSearch" 
                           value="1, 2, 3" data-bind="value: trackSearch">
-        <button data-bind="click: searchTrack">Search</button><br />
+        <button data-bind="click: searchTrack">Search</button><br />-->
         <!--ko foreach: tracks-->
-          <div class="track-result">
+          {{!-- <div class="track-result">
             <img alt="album cover" data-bind="attr: { src: imageUrl }">
             <h3 data-bind="text: albumName" style="text-align: center;"></h3>
-          </div>
+          </div> --}}
         <!--/ko-->
-        <div id="search-track-container"></div>
+       <!-- <div id="search-track-container"></div>
       </section>
       
       <section style="background-color:#503750;color:white;">
@@ -38,5 +38,142 @@
         <ol id="top-tracks-container"></ol>
       </section>
       
-    </main>
+    </main>-->
+	<div class="album" id="album">
+		<div class="album--cover"></div>
+		<div class="album--info">
+			<h3 class="info--title"></h3>
+			<p class="info--subtext">🐼</p>
+		</div>
+	</div>
+	<canvas id="myChart"></canvas>
+	<script>
+		//#region Test
+			var customTooltips = function(tooltip) {
+				// Tooltip Element
+				var tooltipEl = $('#album')[0];
+				var albumCover = $('.info--cover');
+				var albumTitle = $('.info--title');
 
+				//IF ELEMENT DOES NOT EXIST
+				/*if (!tooltipEl) {
+					tooltipEl = document.createElement('div');
+					tooltipEl.id = 'album';
+					tooltipEl.innerHTML = '<div></div>';
+					this._chart.canvas.parentNode.appendChild(tooltipEl);
+				}*/
+
+				// Hide if no tooltip
+				if (tooltip.opacity === 0) {
+					tooltipEl.style.opacity = 0;
+					return;
+				}
+
+				// Set caret Position
+				tooltipEl.classList.remove('above', 'below', 'no-transform');
+				if (tooltip.yAlign) {
+					tooltipEl.classList.add(tooltip.yAlign);
+				} else {
+					tooltipEl.classList.add('no-transform');
+				}
+
+				function getBody(bodyItem) {
+					return bodyItem.lines;
+				}
+
+				// Set Text
+				if (tooltip.body) {
+					var titleLines = tooltip.title || [];
+					var bodyLines = tooltip.body.map(getBody);
+
+					titleLines.forEach(function(title) {
+						albumTitle.text('Her');
+					});
+
+					bodyLines.forEach(function(body, i) {
+						/*var colors = tooltip.labelColors[i];
+						var style = 'background:' + colors.backgroundColor;
+						style += '; border-color:' + colors.borderColor;
+						style += '; border-width: 2px';
+						var span = '<span class="chartjs-tooltip-key" style="' + style + '"></span>';
+						innerHtml += '<div>' + span + body + '</div>';*/
+					});
+
+					/*var tableRoot = document.getElementsByClassName('album');
+					tableRoot.innerHTML = innerHtml;*/
+				}
+
+				var positionY = this._chart.canvas.offsetTop;
+				var positionX = this._chart.canvas.offsetLeft;
+
+				// Display, position, and set styles for font
+				tooltipEl.style.opacity = 1;
+				tooltipEl.style.left = positionX + tooltip.caretX - 100 + 'px';
+				tooltipEl.style.top = positionY + tooltip.caretY + 'px';
+				//tooltipEl.style.fontFamily = tooltip._bodyFontFamily;
+				//tooltipEl.style.fontSize = tooltip.bodyFontSize + 'px';
+				//tooltipEl.style.fontStyle = tooltip._bodyFontStyle;
+				//tooltipEl.style.padding = tooltip.yPadding + 'px ' + tooltip.xPadding + 'px';
+			};
+		//#endregion
+		var ctx = document.getElementById("myChart").getContext("2d");
+
+		var cloud = new Image();
+		cloud.src = 'https://i.ytimg.com/vi/pQMyOFHhS2k/hqdefault.jpg';
+		cloud.height = 150;
+		cloud.width = 150;
+
+		var current = new Date();
+		var past = current.setFullYear(1853);
+		var newPoint = current.setFullYear(1975);
+
+		var myChart = new Chart(ctx, {
+			type: 'line',
+			data: {
+				labels: ['Album 1', 'Album 2', 'Album 3'],
+				datasets: [{
+					data: [{
+						x: new Date(),
+						y: 0.2
+					}, {
+						x: past,
+						y: 0.4
+					}, {
+						x: newPoint,
+						y: 0.8
+					}],
+					backgroundColor: 'rgba(0, 0, 0, 0)',
+					borderColor: 'rgba(255,99,132,1)',
+					//pointStyle: cloud,
+					pointHoverBorderColor: '#000',
+					hitRadius: 15,
+					//pointRadius: 80,
+				}]
+			},
+			options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true,
+							min: 0,
+							max: 1,
+							yAxisID: 'happines-index'
+						},
+					}],
+
+					xAxes: [{
+						type: 'time',
+						distribution: 'linear'
+					}]
+				},
+				tooltips: {
+					// Disable the on-canvas tooltip
+					enabled: false,
+					mode: 'index',
+					position: 'nearest',
+					custom: customTooltips
+				
+				}
+			}		
+		});
+	</script>
