@@ -10,6 +10,7 @@
   
   body {
 	padding: 40px 0;
+	background: #00304F;
   }
   
   header {
@@ -85,18 +86,19 @@ section:first-child button{
 .album {
 	opacity: 0;
 	position: absolute;
-	width: 300px;
+	background: #3a3a3a;
+	width: 240px;
 	height: 300px;
 	border-radius: 50%;
 	padding: 5px;
 	margin: auto;
   }
   .album--cover {
-	width: 180px;
-	height: 180px;
+	width: 150px;
+	height: 150px;
 	margin: auto;
 	margin-top: 30px;
-	border-radius: 5px;
+	border-radius: 40%;
 	background: url("https://i.scdn.co/image/2a4aaa18169c9a6b1b6debb81488bdab216db332");
 	background-size: cover;
 	background-size: 100%;
@@ -107,5 +109,5 @@ section:first-child button{
 	font-family: "Vinque";
   }
   .album--info .info--title {
-	color: #3a3a3a;
+	color: #fff;
   }
