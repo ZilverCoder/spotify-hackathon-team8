@@ -120,10 +120,10 @@ app.get('/get-album-data-for-artist', function (request, response) {
 	var count = 0;
 	var searchOffset = 0;
 	var searchSteps = 25;
-	var delay = 200
+	var delay = 2
 	var dataArray = [];
 
-	function processData(data) {
+	function processData(data, delay) {
 		console.log(data.length);
 		cleanedAlbums = removeSpecialEditions(data);
 		cleanedAlbums.map(function(album, albumCount) {
@@ -163,7 +163,12 @@ app.get('/get-album-data-for-artist', function (request, response) {
 							// for every audio feature
 							data.body.audio_features.forEach(featureElement => {
 								// get the correct song in the albumInformation
+
 								albumInformation.songs.forEach(songElement => {
+									if (featureElement == null || songElement == null) {
+										return;
+									}
+									
 									songElement.features = {};
 									if (featureElement.id == songElement.id) {
 
@@ -218,7 +223,17 @@ app.get('/get-album-data-for-artist', function (request, response) {
 		searchOffset += searchSteps;
 		dataArray.push(...data.body.items);
 		if (data.body.items == 0 || searchOffset >= 100) {
-			processData(dataArray);
+			if (dataArray.length > 75) {
+				delay = 350;
+			} else if (dataArray.length > 55){ 
+				delay = 275;
+			} else if (dataArray.length > 35){ 
+				delay = 200;
+			} else {
+				delay = dataArray.length * 5;
+			}
+			console.log(delay);
+			processData(dataArray, delay);
 		} else {
 			spotifyApi.getArtistAlbums(artistId, {album_type: "album", country:"SE", limit: searchSteps, offset: searchOffset})
 				.then(getData, function(err) {
