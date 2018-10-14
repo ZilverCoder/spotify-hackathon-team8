@@ -1,21 +1,27 @@
 <header>
 	<h1 class="artist-name">Spotify API Playground</h1>
 </header>
-<div class="artist-container">
-	<div class="artist-image"></div>
-	<div id="album">
-		<div class="cover-container">
-			<div class="album--cover"></div>
-			<h3 class="album--title"></h3>
+<div class="information-container">
+	<div class="artistInfo-container">
+		<div class="artist-container">
+			<div class="artist-image"></div>
+			<div id="album">
+				<div class="cover-container">
+					<div class="album--cover"></div>
+					<h3 class="album--title"></h3>
+				</div>
+				<ul class="info--subtext"></ul>
+			</div>
 		</div>
-		<ul class="info--subtext"></ul>
+		<div id="loading">
+			<img src="img/loading.gif"/>
+		</div>
+	</div>
+	<div id="outer">
+		<canvas id="myChart"></canvas>
 	</div>
 </div>
-<div id="loading">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Ajax_loader_metal_512.gif"/>
-</div>
 
-<div id="outer"><canvas id="myChart"></canvas></div>
 <script src="scripts/chartFunc.js"></script>
 <script>
 	let artistImage = urlParams.get('artistImage');

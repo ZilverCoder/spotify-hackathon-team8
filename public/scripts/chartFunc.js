@@ -213,7 +213,6 @@ $.when(data).done(function(){
 
 	var chartDatasets = [];
  
-
 	var featureNames = {
 		"danceability": "Dancable",
 		"energy": "Energy",
@@ -224,7 +223,6 @@ $.when(data).done(function(){
 		"instrumentalness": "Instrumenrtal",
 		"liveness": "Liveness",
 		"valence": "Cheerful",}
-
 
 	for (var feature in colors) {
 		chartDatasets.push({
@@ -240,6 +238,7 @@ $.when(data).done(function(){
 	}
 	
 	Chart.defaults.global.defaultFontColor = "#fff";
+	Chart.defaults.global.defaultFontSize = 18;
 	var myChart = new Chart(ctx, {
 		type: 'line',
 		data: {
