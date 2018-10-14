@@ -217,6 +217,29 @@ $.when(data).done(function(){
 						beginAtZero: true,
 						min: 0,
 						max: 1,
+						stepSize: 0.25,
+						callback: function(label, index, labels) {
+							if(label == 0)
+							{
+								return 'Not Happieness';
+							}
+							else if(label > 0 && label <= 0.25)
+							{
+								return 'Little Happieness';
+							}
+							else if(label > 0.25 && label <= 0.5)
+							{
+								return 'Normal Happieness';
+							}
+							else if(label > 0.5 && label <= 0.75)
+							{
+								return 'More Happieness';
+							}
+							else
+							{
+								return 'Most Happieness';
+							}
+						},
 					},
 				}],
 		
