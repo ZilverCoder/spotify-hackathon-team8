@@ -37,6 +37,13 @@ function removeSpecialEditions(albums) {
 			} else if (tmpAlbum.name == album.name
 				&& j > i) {
 					indicesToBeRemoved.push(i);
+			} else if (album.name.indexOf('(') != -1
+				&& j > i
+				&& (tmpAlbum.name.substr(0, tmpAlbum.name.indexOf('(')) == album.name.substr(0, album.name.indexOf('(')))) {
+					indicesToBeRemoved.push(i);
+			} else if (tmpAlbum.release_date == album.release_date
+				&& j > i) {
+					indicesToBeRemoved.push(i);
 			}
 		});
 

@@ -13,7 +13,12 @@
 		padding: 40px 0;
 		color:#F037A5;
 	}
-	
+	#outer{
+		margin: auto;
+		display: flex;
+		height:90vh;
+		width:70vw;
+	}
   
   header {
 	padding: 10px 40px;
