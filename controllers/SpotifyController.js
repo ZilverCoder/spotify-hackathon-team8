@@ -39,10 +39,18 @@ function removeSpecialEditions(albums) {
 					indicesToBeRemoved.push(i);
 			}
 		});
+
+		if (album.name.toLowerCase().includes("live")) {
+			indicesToBeRemoved.push(j);
+		}
 	});
 
-	for (var i = indicesToBeRemoved.length -1; i >= 0; i--) {
-		cleanedAlbums.splice(indicesToBeRemoved[i],1);
+	var uniqueIndices = indicesToBeRemoved.filter(function(item, pos) {
+		return indicesToBeRemoved.indexOf(item) == pos;
+	})
+
+	for (var i = uniqueIndices.length -1; i >= 0; i--) {
+		cleanedAlbums.splice(uniqueIndices[i],1);
 	};
 	return cleanedAlbums;
 };
@@ -94,7 +102,7 @@ app.get('/get-album-data-for-artist', function (request, response) {
 	var artistId = request.query.artistId;
 	var responseData = {};
 	var count = 0;
-	spotifyApi.getArtistAlbums(artistId, {album_type:"album", country:"SE"})
+	spotifyApi.getArtistAlbums(artistId, {album_type: "album", country:"SE", limit: 50})
   .then(function(data) {
 		cleanedAlbums = removeSpecialEditions(data.body.items);
 		
@@ -124,7 +132,7 @@ app.get('/get-album-data-for-artist', function (request, response) {
 							}
 						})
 					})
-					albumInformation.averagedPopularity /= album.total_tracks;
+					//albumInformation.averagedPopularity /= album.total_tracks;
 				
 					// get all features for the tracks for this particular album
 					spotifyApi.getAudioFeaturesForTracks(trackIds)
@@ -152,9 +160,12 @@ app.get('/get-album-data-for-artist', function (request, response) {
 								} // end if id == id
 							}); // end for each song
 						}); // end for each featureElement
+						albumInformation.features.popularity = albumInformation.averagedPopularity;
 						for (var feature in albumInformation.features) {
 							albumInformation.features[feature] /= album.total_tracks;
 						}
+						// normalise value
+						albumInformation.features.popularity /= 100;
 
 						responseData[albumInformation.id] = albumInformation;
 						if(++count == cleanedAlbums.length) {
