@@ -100,6 +100,7 @@ section:first-child button{
 	display: flex;
 	flex-direction: column;
 	max-width: 300px;
+	padding-left: 20px;
 }
 
 .artist-image{
@@ -167,6 +168,11 @@ section:first-child button{
 .information-container{
 	display: flex;
 	flex-direction: row;
+}
+
+#loading{
+	width: 100%;
+	position: absolute;
 }
 
 .artist-image{
