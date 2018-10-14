@@ -225,7 +225,7 @@ $.when(data).done(function(){
 		"popularity": "Popular",
 		"mode": "Key",
 		"speechiness": "Talky",
-		"acousticness": "Acustic",
+		"acousticness": "Acoustic",
 		"instrumentalness": "Instrumental",
 		"liveness": "Live",
 		"valence": "Cheerful",
