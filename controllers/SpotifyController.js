@@ -102,6 +102,15 @@ app.get('/get-artists-from-name' , function (request, response) {
 		);
 	});
 
+	function sleep(milliseconds) {
+		var start = new Date().getTime();
+		for (var i = 0; i < 1e7; i++) {
+		  if ((new Date().getTime() - start) > milliseconds){
+			break;
+		  }
+		}
+	  }
+
 
 // get the accumulated data for an artist
 // including the averaged 
@@ -109,11 +118,16 @@ app.get('/get-album-data-for-artist', function (request, response) {
 	var artistId = request.query.artistId;
 	var responseData = {};
 	var count = 0;
-	spotifyApi.getArtistAlbums(artistId, {album_type: "album", country:"SE", limit: 50})
-  .then(function(data) {
-		cleanedAlbums = removeSpecialEditions(data.body.items);
-		
-		cleanedAlbums.map(function(album) {
+	var searchOffset = 0;
+	var searchSteps = 30
+
+	var dataArray = [];
+
+	function processData(data) {
+		console.log(data.length);
+		cleanedAlbums = removeSpecialEditions(data);
+		cleanedAlbums.map(function(album, albumCount) {
+
 			var albumInformation = {features: {}, songs: {}};
 			albumInformation.id = album.id;
 			albumInformation.name = album.name;
@@ -123,12 +137,15 @@ app.get('/get-album-data-for-artist', function (request, response) {
 
 			albumInformation.averagedPopularity = 0;
 
+			sleep(200);
 			// get all tracks for the album
 			spotifyApi.getAlbumTracks(album.id)
 			.then(function(data) {
+
 				albumInformation.songs = data.body.items;
 				var trackIds = data.body.items.map(e => e.id);
-
+				
+				sleep(200);
 				spotifyApi.getTracks(trackIds)
 				.then(function(data) {
 					data.body.tracks.forEach(trackElement => {
@@ -138,54 +155,79 @@ app.get('/get-album-data-for-artist', function (request, response) {
 								albumInformation.averagedPopularity += trackElement.popularity;
 							}
 						})
-					})
-					//albumInformation.averagedPopularity /= album.total_tracks;
-				
-					// get all features for the tracks for this particular album
-					spotifyApi.getAudioFeaturesForTracks(trackIds)
-					.then(function(data) {
-
-						// for every audio feature
-						data.body.audio_features.forEach(featureElement => {
-							// get the correct song in the albumInformation
-							albumInformation.songs.forEach(songElement => {
-								songElement.features = {};
-								if (featureElement.id == songElement.id) {
-
-									for (var attribute in featureElement) { 
-										songElement.features[attribute] = featureElement[attribute];
-										if (["type", "id", "uri", "track_href", "analysis_url", "duration_ms", "time_signature"].includes(attribute)) {
-											// we want to ignore id, type and so on
-											continue;
-										}
-										if (attribute in albumInformation.features) {
-											albumInformation.features[attribute] += featureElement[attribute];
-										} else {
-											albumInformation.features[attribute] = featureElement[attribute];
-										}
-									} // end var attribute in featureElement
-								} // end if id == id
-							}); // end for each song
-						}); // end for each featureElement
-						albumInformation.features.popularity = albumInformation.averagedPopularity;
-						for (var feature in albumInformation.features) {
-							albumInformation.features[feature] /= album.total_tracks;
-						}
-						// normalise value
-						albumInformation.features.popularity /= 100;
-
-						responseData[albumInformation.id] = albumInformation;
-						if(++count == cleanedAlbums.length) {
-							response.send(responseData);
-							
-						}
-					}); // end getAudioFeatures
+					})}, function(err) {
+						console.error("getTracks" + err);
 				});
+				
+				// get all features for the tracks for this particular album
+				sleep(200);
+				spotifyApi.getAudioFeaturesForTracks(trackIds)
+				.then(function(data) {
+					// for every audio feature
+					data.body.audio_features.forEach(featureElement => {
+						// get the correct song in the albumInformation
+						albumInformation.songs.forEach(songElement => {
+							songElement.features = {};
+							if (featureElement.id == songElement.id) {
+
+								for (var attribute in featureElement) { 
+									songElement.features[attribute] = featureElement[attribute];
+									if (["type", "id", "uri", "track_href", "analysis_url", "duration_ms", "time_signature"].includes(attribute)) {
+										// we want to ignore id, type and so on
+										continue;
+									}
+									if (attribute in albumInformation.features) {
+										albumInformation.features[attribute] += featureElement[attribute];
+									} else {
+										albumInformation.features[attribute] = featureElement[attribute];
+									}
+								} // end var attribute in featureElement
+							} // end if id == id
+						}); // end for each song
+					}); // end for each featureElement
+					albumInformation.features.popularity = albumInformation.averagedPopularity;
+					for (var feature in albumInformation.features) {
+						albumInformation.features[feature] /= album.total_tracks;
+					}
+					// normalise value
+					albumInformation.features.popularity /= 100;
+					
+					responseData[albumInformation.id] = albumInformation;
+					if(++count == cleanedAlbums.length) {
+						console.log("trying to send response!");
+						response.send(responseData);
+						console.log("response sent!");
+						return;
+					}
+				}, function(err) {
+					console.error("getAudioFeaturesForTracks " + err);
+				}); // end getAudioFeatures
+				
+			}, function(err) {
+				console.error("getAlbumTracks" + err);
 			}); // end getAlbumTracks
 		}); // end for every album
-  }, function(err) {
-    console.error(err);
-  });
+
+		//console.log(responseString);*/
+	}
+
+	function getData(data) {
+		searchOffset += searchSteps;
+		dataArray.push(...data.body.items);
+		if (data.body.items == 0) {
+			processData(dataArray);
+		} else {
+			spotifyApi.getArtistAlbums(artistId, {album_type: "album", country:"SE", limit: searchSteps, offset: searchOffset})
+				.then(getData, function(err) {
+					console.error(err);
+				});
+		}
+	}
+
+	var lastRequest = spotifyApi.getArtistAlbums(artistId, {album_type: "album", country:"SE", limit: searchSteps})
+  	.then(getData, function(err) {
+		console.error(err);
+	  }); 
 });
   
 module.exports = app;
