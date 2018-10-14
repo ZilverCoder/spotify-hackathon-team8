@@ -166,7 +166,7 @@ $.when(data).done(function(){
 		"valence": "#CC0066",
 	};
 
-	var shownOnDefault = ["valence", "danceability"];
+	var shownOnDefault = ["valence", "acousticness"];
 
 	var chartDatasets = [];
 
