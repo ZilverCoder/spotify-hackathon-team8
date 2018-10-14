@@ -9,7 +9,7 @@
   }
   
 	body {
-		background-color:#00304F;
+		background: linear-gradient(-200deg, #00304f 0%, #E37233 100%);
 		padding: 40px 0;
 		color:#F037A5;
 	}
@@ -43,7 +43,7 @@
   section {
 	padding: 30px 70px;
 	margin: 20px 0;
-	background-color: #f3f3f3;
+	/*background-color: #f3f3f3;*/
   }
   
   footer {
@@ -69,6 +69,31 @@ section:first-child button{
 	width: 300px;
 	word-break: break-word;
 }
+
+/*------------------*/
+/*-SECTION STYLING--*/
+/*------------------*/
+
+.welcome-section{
+	width: 700px;
+    border-radius: 20px;
+    background: none;
+    margin-left: -30px;
+}
+
+.search-section{
+
+}
+
+.suggestions-section{
+	padding: 30px 70px;
+    margin: 20px 0;
+    /* background-color: #ffd8ef; */
+    background: linear-gradient(-168deg, rgba(255, 187, 190, 0.8) 0%, rgba(219, 225, 231, 0.8) 100%);
+}
+
+
+/*------------------*/
 
 /*------------------*/
 /*-TOOLTIP STYLING--*/
