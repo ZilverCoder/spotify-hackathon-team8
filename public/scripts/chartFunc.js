@@ -213,8 +213,6 @@ $.when(data).done(function(){
 
 	var chartDatasets = [];
 
-
-
 	for (var feature in colors) {
 		chartDatasets.push({
 			data: albumsForChart[feature],
