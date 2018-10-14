@@ -157,6 +157,7 @@ $.when(data).done(function(){
 			//tooltipEl.style.padding = tooltip.yPadding + 'px ' + tooltip.xPadding + 'px';
 		};
 	//#endregion
+
 	//#region Legend
 	//var defaultLegendClickHandler = Chart.defaults.global.legend.onClick;
 	var newLegendClickHandler = function (e, legendItem) {
@@ -235,27 +236,19 @@ $.when(data).done(function(){
 						beginAtZero: true,
 						min: 0,
 						max: 1,
-						stepSize: 0.25,
+						stepSize: 0.5,
 						callback: function(label, index, labels) {
 							if(label == 0)
 							{
-								return 'Not Happieness';
+								return 'No';
 							}
-							else if(label > 0 && label <= 0.25)
+							else if(label > 0 && label <= 0.5)
 							{
-								return 'Little Happieness';
-							}
-							else if(label > 0.25 && label <= 0.5)
-							{
-								return 'Normal Happieness';
-							}
-							else if(label > 0.5 && label <= 0.75)
-							{
-								return 'More Happieness';
+								return 'Meh';
 							}
 							else
 							{
-								return 'Most Happieness';
+								return 'Very';
 							}
 						},
 					},
