@@ -143,6 +143,7 @@ section:first-child button{
 }
 
 #loading{
+	position: top;
 	display: flex;
 	justify-content: center;
 	align-content: center;
