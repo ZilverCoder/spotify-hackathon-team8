@@ -74,7 +74,11 @@ var icons = {
 $.when(data).done(function(){
 	//#region Custom Tooltip
 		var customTooltips = function(tooltip) {
-			
+			if (tooltip.opacity > 0) {
+				$("#artist-image-header").hide();
+			} else {
+				$("#artist-image-header").show();
+			}
 			// Tooltip Element
 			var tooltipEl = $('#album')[0];
 			var albumTitle = $('.album--title');
@@ -130,8 +134,7 @@ $.when(data).done(function(){
 								album.features[feature].toFixed(2) + "</li>");
 								
 								//"<p>Test</p>" 
-							}
-							console.log(featureText);
+							}							
 							//subtext.text(featureText);
 						}
 					})
