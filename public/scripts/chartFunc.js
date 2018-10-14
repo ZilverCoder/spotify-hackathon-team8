@@ -229,6 +229,7 @@ $.when(data).done(function(){
 	}
 	
 	Chart.defaults.global.defaultFontColor = "#fff";
+	Chart.defaults.global.defaultFontSize = 18;
 	var myChart = new Chart(ctx, {
 		type: 'line',
 		data: {
