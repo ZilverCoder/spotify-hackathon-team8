@@ -223,7 +223,7 @@ $.when(data).done(function(){
 		"danceability": "Danceable",
 		"energy": "Energetic",
 		"popularity": "Popular",
-		"mode": "Key",
+		"mode": "Mood",
 		"speechiness": "Talky",
 		"acousticness": "Acoustic",
 		"instrumentalness": "Instrumental",
