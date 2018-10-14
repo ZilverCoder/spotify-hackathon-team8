@@ -13,10 +13,7 @@ var albumsForChart = {};
 
 var data = $.get(`spotify/get-album-data-for-artist?artistId=${myParam}`, function(data) {
 	// "Data" is the object we get from the API. See server.js for the function that returns it.
-	/*console.group('%cResponse from /search-track', 'color: #F037A5; font-size: large');
-	console.log(data);
-	console.groupEnd();*/
-	console.log("hey");
+
 	$.each(data, function(index, album){
 		allAlbumsArray.push(new Album(album.releaseDate, album.images, album.features, album.name));
 		for (var feature in album.features) {
@@ -143,13 +140,6 @@ $.when(data).done(function(){
 				});
 
 				bodyLines.forEach(function(body, i) {
-					/*var colors = tooltip.labelColors[i];
-					var style = 'background:' + colors.backgroundColor;
-					style += '; border-color:' + colors.borderColor;
-					style += '; border-width: 2px';
-					var span = '<span class="chartjs-tooltip-key" style="' + style + '"></span>';
-					innerHtml += '<div>' + span + body + '</div>';*/
-					//console.log(body);
 				});
 
 				/*var tableRoot = document.getElementsByClassName('album');
@@ -182,8 +172,6 @@ $.when(data).done(function(){
 
 		// We hid a dataset ... rerender the chart
 		ci.update();
-		//defaultLegendClickHandler(e, legendItem);
-		console.log(legendItem);
 	};
 	//#endregion
 	//#region Color Fun

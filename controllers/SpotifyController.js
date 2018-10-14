@@ -205,9 +205,7 @@ app.get('/get-album-data-for-artist', function (request, response) {
 							
 							responseData[albumInformation.id] = albumInformation;
 							if(++count == cleanedAlbums.length) {
-								console.log("trying to send response!");
 								response.send(responseData);
-								console.log("response sent!");
 								return;
 							}
 						}, function(err) {
@@ -224,8 +222,6 @@ app.get('/get-album-data-for-artist', function (request, response) {
 				console.error("getAlbumTracks" + err);
 			}); // end getAlbumTracks
 		}); // end for every album
-
-		//console.log(responseString);*/
 	}
 
 	function getData(data) {
@@ -241,7 +237,6 @@ app.get('/get-album-data-for-artist', function (request, response) {
 			} else {
 				delay = dataArray.length * 5;
 			}
-			console.log(delay);
 			processData(dataArray, delay);
 		} else {
 			spotifyApi.getArtistAlbums(artistId, {album_type: "album", country:"SE", limit: searchSteps, offset: searchOffset})

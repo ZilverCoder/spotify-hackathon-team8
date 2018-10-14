@@ -3,7 +3,6 @@ var app = express();
 
 app.get('/', function(req, res, next){
 	var artistId = req.query.artistId;
-	console.log(artistId);
     res.render('Chart');
 });
 
