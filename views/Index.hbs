@@ -1,5 +1,5 @@
 <header>
-  <h1>Spotify API Playground</h1>
+  <h1>Ride si apis</h1>
 </header>
 
 <main class="body">
@@ -7,16 +7,14 @@
       <script src="https://code.jquery.com/jquery-3.3.1.min.js"  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-    <section>
-      <div style="width: 50%; margin: 0 auto; padding-bottom: 100px">
-        <h2 style="text-align: center;">Search for an Artist</h2>
-        <div style="width: 50%; margin: 0 auto;" class="text-center">
-          <input  type="text" placeholder="Search for an Artist" id="artistSearch" data-bind="value: searchBoxVal, enterKey: searchArtists" class="form-control"> <br>
-          <button type="button" style="display: inline-block" class="btn btn-info" data-bind="click: searchArtists">
-            <span class="glyphicon glyphicon-search"></span> Search
-          </button>
-        </div>
+  <!--<section>
+    <div style="width: 50%; margin: 0 auto; padding-bottom: 100px">
+      <h2 style="text-align: center;">Search for an Artist</h2>
+      <div style="width: 50%; margin: 0 auto;" class="text-center">
+        <input  type="text" placeholder="Search for an Artist" id="artistSearch" data-bind="value: searchBoxVal, enterKey: searchArtists" class="form-control"> <br>
+        <button type="button" style="display: inline-block" class="btn btn-info" data-bind="click: searchArtists">
+          <span class="glyphicon glyphicon-search"></span> Search
+        </button>
       </div>
 
       <div class="artist-result" data-bind="foreach: searchResult" style="width: 100%; padding-top=100px; display: flex; justify-content: space-between;">
@@ -24,14 +22,57 @@
           <a data-bind="attr: { href: '/chart?artistId=' + artistId }">
             <img alt="artist image" data-bind="attr: { src: imageUrl }">
           </a>
-          <h3 data-bind="text: artistName" style="text-align: center;"></h3>
+          <h3 data-bind="text: artistName" style="text-align: center; max-width: 300px"></h3>
         </div>
       </div>
-      
-      </div>
-      <div id="search-artists-container"></div>
-    </section>
-
+    </div>
+    
+    </div>
+    <div id="search-artists-container"></div>
+  </section>-->
 
   
+</main>
+
+<main>
+	<section class="welcome">
+		<h2>Welcome to Ride si apis!</h2>
+		<h3>Search for you facourite artist <br> and we will show you all you want to know!</h3>
+	</section>
+	<section class="search">
+		<div class="search--box">
+			<div style="width: 50%; margin: 0 auto;" class="text-center">
+				<input  type="text" placeholder="Search for an Artist" id="artistSearch" data-bind="value: searchBoxVal, enterKey: searchArtists" class="form-control"> <br>
+				<button type="button" style="display: inline-block" class="btn btn-info" data-bind="click: searchArtists">
+					<span class="glyphicon glyphicon-search"></span> Search
+				</button>
+			</div>
+		</div>
+		<div class="search--result">
+			<div class="artist-result" data-bind="foreach: searchResult" style="width: 100%; padding-top=100px; display: flex; justify-content: space-between;">
+				<div style="display: inline-block; width=300px">
+					<a data-bind="attr: { href: '/chart?artistId=' + artistId + '&artistImage=' + imageUrl }">
+					<img alt="artist image" data-bind="attr: { src: imageUrl }">
+					</a>
+					<h3 data-bind="text: artistName" style="text-align: center;"></h3>
+				</div>
+			</div>
+			<div class="noResultSection" data-bind="visible: showNoResultSection">
+				<p>Ooops couldn't find that artist (ーー゛)</p>
+			</div>
+		</div>
+	</section>
+	<section class="suggestions">
+		<h2>Can't think of any artists? </h2>
+		<div class="preSetArtists--container">
+			<!--ko foreach: preSetArtistSelection-->
+			<div class="preSetArtists">
+				<a data-bind="attr: { href: '/chart?artistId=' + artistId + '&artistImage=' + imageUrl }">
+					<img alt="artist image" data-bind="attr: { src: imageUrl }">
+				</a>
+				<h3 data-bind="text: artistName" style="text-align: center;"></h3>
+			</div>
+			<!--/ko-->
+		</div>
+	</section>
 </main>
