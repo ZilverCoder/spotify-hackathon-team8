@@ -71,6 +71,13 @@ function removeSpecialEditions(albums) {
 app.get('/get-artists-from-name' , function (request, response) {
 	var artistName = request.query.artistName;
 
+	console.log("Looking for artist: " + artistName);
+
+	if (artistName == "undefined") {
+		// just for the lolz
+		artistName = "Rick Astley";
+	}
+
 	spotifyApi.searchArtists(artistName)
 		.then(function(data) {
 			var responseData = [];

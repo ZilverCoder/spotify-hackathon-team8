@@ -220,7 +220,7 @@ $.when(data).done(function(){
 	var chartDatasets = [];
  
 	var featureNames = {
-		"danceability": "Dancable",
+		"danceability": "Danceable",
 		"energy": "Energetic",
 		"popularity": "Popular",
 		"mode": "Key",
