@@ -158,6 +158,7 @@ $.when(data).done(function(){
 	var colors = {
 		"danceability": "#FF0000",
 		"energy": "#CC6600",
+		"popularity": "#FFFF00",
 		"mode": "#00CC00",
 		"speechiness": "#00CCCC",
 		"acousticness": "#0000CC",
@@ -170,13 +171,15 @@ $.when(data).done(function(){
 
 	var chartDatasets = [];
 
-	for (var feature in albumsForChart) {
+
+
+	for (var feature in colors) {
 		console.log(albumsForChart[feature]);
 		chartDatasets.push({
 			data: albumsForChart[feature],
 			label: feature,
 			backgroundColor: 'rgba(255, 255, 255, 0)',
-			pointRadius: 25,
+			pointRadius: 10,
 			borderColor: colors[feature],
 			pointHoverBorderColor: '#000',
 			hitRadius: 15,
