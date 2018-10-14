@@ -157,31 +157,49 @@ $.when(data).done(function(){
 			//tooltipEl.style.padding = tooltip.yPadding + 'px ' + tooltip.xPadding + 'px';
 		};
 	//#endregion
-	for(var feature in albumsForChart) {
-		albumsForChart[feature].sort(function(a, b) {
-		var nameA = a.x;
-		var nameB = b.x;
-		if (nameA < nameB) {
-		  return -1;
-		}
-		if (nameA > nameB) {
-		  return 1;
-		}
-		return 0;
-		});
-	}
+	//#region Legend
+	//var defaultLegendClickHandler = Chart.defaults.global.legend.onClick;
+	var newLegendClickHandler = function (e, legendItem) {
+		var index = legendItem.datasetIndex;
+		var ci = this.chart;
+		var meta = ci.getDatasetMeta(index);
 
-	var colors = {
-		"danceability": "#FF0000",
-		"energy": "#CC6600",
-		"popularity": "#FFFF00",
-		"mode": "#00CC00",
-		"speechiness": "#00CCCC",
-		"acousticness": "#0000CC",
-		"instrumentalness": "#6600CC",
-		"liveness": "#CC00CC",
-		"valence": "#CC0066",
+		// See controller.isDatasetVisible comment
+		meta.hidden = meta.hidden === null? !ci.data.datasets[index].hidden : null;
+
+		// We hid a dataset ... rerender the chart
+		ci.update();
+		//defaultLegendClickHandler(e, legendItem);
+		console.log(legendItem);
 	};
+	//#endregion
+	//#region Color Fun
+		for(var feature in albumsForChart) {
+			albumsForChart[feature].sort(function(a, b) {
+			var nameA = a.x;
+			var nameB = b.x;
+			if (nameA < nameB) {
+			return -1;
+			}
+			if (nameA > nameB) {
+			return 1;
+			}
+			return 0;
+			});
+		}
+
+		var colors = {
+			"danceability": "#FF0000",
+			"energy": "#CC6600",
+			"popularity": "#FFFF00",
+			"mode": "#00CC00",
+			"speechiness": "#00CCCC",
+			"acousticness": "#0000CC",
+			"instrumentalness": "#6600CC",
+			"liveness": "#CC00CC",
+			"valence": "#CC0066",
+		};
+	//#endregion
 
 	var shownOnDefault = ["valence", "acousticness"];
 
@@ -260,6 +278,9 @@ $.when(data).done(function(){
 				custom: customTooltips,
 				intersect: false
 			
+			},
+			legend: {
+				onClick: newLegendClickHandler
 			}
 		}	
 	});
