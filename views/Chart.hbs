@@ -1,23 +1,24 @@
 <header>
- <h1>Spotify API Playground</h1>
+	<h1 class="artist-name">Spotify API Playground</h1>
 </header>
-    <div class="artist-image"></div>
-    <h2 class="artist-name"></h2>
-    <div class="album" id="album">
-        <div class="album--cover"></div>
-        <div class="album--info">
-            <h3 class="info--title"></h3>
-            <p class="info--subtext">:panda_face:</p>
-        </div>
-    </div>
+<div class="artist-container">
+	<div class="artist-image"></div>
+	<div id="album">
+		<div class="cover-container">
+			<div class="album--cover"></div>
+			<h3 class="album--title"></h3>
+		</div>
+		<ul class="info--subtext"></ul>
+	</div>
+</div>
 
-     <div id="outer"><canvas id="myChart"></canvas></div>
-    <script src="scripts/chartFunc.js"></script>
-	<script>
-		let artistImage = urlParams.get('artistImage');
-        let artistName = urlParams.get('artistName');
-		$('.artist-image').css('background','url('+artistImage+')');
-		$('.artist-image').css('background-position','center');
-		$('.artist-image').css('background-size','cover');
-        $('.artist-name').text(artistName);
-	</script>
+<div id="outer"><canvas id="myChart"></canvas></div>
+<script src="scripts/chartFunc.js"></script>
+<script>
+	let artistImage = urlParams.get('artistImage');
+	let artistName = urlParams.get('artistName');
+	$('.artist-image').css('background', 'url(' + artistImage + ')');
+	$('.artist-image').css('background-position', 'center');
+	$('.artist-image').css('background-size', 'cover');
+	$('.artist-name').text(artistName);
+</script>

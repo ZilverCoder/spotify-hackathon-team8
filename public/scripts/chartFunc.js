@@ -77,7 +77,7 @@ $.when(data).done(function(){
 			
 			// Tooltip Element
 			var tooltipEl = $('#album')[0];
-			var albumTitle = $('.info--title');
+			var albumTitle = $('.album--title');
 			var subtext = $('.info--subtext');
 			//IF ELEMENT DOES NOT EXIST
 			/*if (!tooltipEl) {
@@ -114,7 +114,7 @@ $.when(data).done(function(){
 					allAlbumsArray.forEach(album =>  {
 						
 						if (album.year == tooltip.title) {
-							albumTitle.text(album.title + " (" + album.year + ")");
+							albumTitle.text(album.title + "(" + album.year + ")");
 							$('.album--cover').css('background','url('+album.imageObj.src+')');
 							$('.album--cover').css('background-origin','content-box');
 							$('.album--cover').css('background-size','cover');
@@ -122,10 +122,17 @@ $.when(data).done(function(){
 							if (album.features.popularity < 1 ) {
 								album.features.popularity *= 100;
 							}
+							subtext.empty();
 							for (var feature in album.features) {
-								featureText += icons[feature] + "(" + feature + "): " + album.features[feature].toFixed(2) + "\n";
+								//featureText += icons[feature] + "(" + feature + "): " + 
+								//album.features[feature].toFixed(2) + "\n";
+								subtext.append( "<li>" + icons[feature] + "(" + feature + "): " + 
+								album.features[feature].toFixed(2) + "</li>");
+								
+								//"<p>Test</p>" 
 							}
-							subtext.text(featureText);
+							console.log(featureText);
+							//subtext.text(featureText);
 						}
 					})
 				});
