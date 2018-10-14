@@ -119,8 +119,8 @@ app.get('/get-album-data-for-artist', function (request, response) {
 	var responseData = {};
 	var count = 0;
 	var searchOffset = 0;
-	var searchSteps = 30
-
+	var searchSteps = 25;
+	var delay = 200
 	var dataArray = [];
 
 	function processData(data) {
@@ -137,7 +137,7 @@ app.get('/get-album-data-for-artist', function (request, response) {
 
 			albumInformation.averagedPopularity = 0;
 
-			sleep(200);
+			sleep(delay);
 			// get all tracks for the album
 			spotifyApi.getAlbumTracks(album.id)
 			.then(function(data) {
@@ -145,7 +145,7 @@ app.get('/get-album-data-for-artist', function (request, response) {
 				albumInformation.songs = data.body.items;
 				var trackIds = data.body.items.map(e => e.id);
 				
-				sleep(200);
+				sleep(delay);
 				spotifyApi.getTracks(trackIds)
 				.then(function(data) {
 					data.body.tracks.forEach(trackElement => {
@@ -157,7 +157,7 @@ app.get('/get-album-data-for-artist', function (request, response) {
 						})
 					})
 						// get all features for the tracks for this particular album
-						sleep(200);
+						sleep(delay);
 						spotifyApi.getAudioFeaturesForTracks(trackIds)
 						.then(function(data) {
 							// for every audio feature
@@ -217,7 +217,7 @@ app.get('/get-album-data-for-artist', function (request, response) {
 	function getData(data) {
 		searchOffset += searchSteps;
 		dataArray.push(...data.body.items);
-		if (data.body.items == 0) {
+		if (data.body.items == 0 || searchOffset >= 100) {
 			processData(dataArray);
 		} else {
 			spotifyApi.getArtistAlbums(artistId, {album_type: "album", country:"SE", limit: searchSteps, offset: searchOffset})
