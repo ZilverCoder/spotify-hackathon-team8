@@ -101,7 +101,7 @@ $.when(data).done(function(){
 					allAlbumsArray.forEach(album =>  {
 						
 						if (album.year == tooltip.title) {
-							albumTitle.text(album.title);
+							albumTitle.text(album.title + " (" + album.year + ")");
 							$('.album--cover').css('background','url('+album.imageObj.src+')');
 							$('.album--cover').css('background-origin','content-box');
 							$('.album--cover').css('background-size','cover');

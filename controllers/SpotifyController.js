@@ -94,7 +94,7 @@ app.get('/get-album-data-for-artist', function (request, response) {
 	var artistId = request.query.artistId;
 	var responseData = {};
 	var count = 0;
-	spotifyApi.getArtistAlbums(artistId, {album_type:"album"})
+	spotifyApi.getArtistAlbums(artistId, {album_type:"album", country:"SE"})
   .then(function(data) {
 		cleanedAlbums = removeSpecialEditions(data.body.items);
 		
