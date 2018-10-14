@@ -5,6 +5,8 @@ cloud.src = 'https://i.ytimg.com/vi/pQMyOFHhS2k/hqdefault.jpg';
 cloud.height = 150;
 cloud.width = 150;
 
+$( "#noalbums" ).hide();
+
 let urlParams = new URLSearchParams(window.location.search);
 let myParam = urlParams.get('artistId');
 
@@ -13,8 +15,8 @@ var albumsForChart = {};
 
 var data = $.get(`spotify/get-album-data-for-artist?artistId=${myParam}`, function(data) {
 	// "Data" is the object we get from the API. See server.js for the function that returns it.
-
 	$.each(data, function(index, album){
+		
 		allAlbumsArray.push(new Album(album.releaseDate, album.images, album.features, album.name));
 		for (var feature in album.features) {
 			if (["loudness", "tempo", "key"].includes(feature)) {
@@ -29,6 +31,7 @@ var data = $.get(`spotify/get-album-data-for-artist?artistId=${myParam}`, functi
 		}
 	});
 });
+
 
 function Album(year, imageObject, features, title){
 	this.year = year;
@@ -292,4 +295,8 @@ $.when(data).done(function(){
 	});
 
 	$( "#loading" ).hide();
+	if (chartDatasets[0].data.length == 0) {
+		$( "#noalbums" ).show();
+		$( "#myChart" ).hide();
+	}
 });

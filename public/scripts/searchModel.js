@@ -41,7 +41,6 @@ var searchModel = function(){
 				data.forEach( artist => {
 					result.push(new Artist(artist.id, artist.name, artist.image.url));
 				});
-				console.log(result);
 				if(result[0] == undefined){
 					self.showNoArtistResultSection(true);
 				}
