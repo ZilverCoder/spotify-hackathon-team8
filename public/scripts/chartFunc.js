@@ -202,7 +202,7 @@ $.when(data).done(function(){
 			"popularity": "#FFFF00",
 			"mode": "#00CC00",
 			"speechiness": "#00CCCC",
-			"acousticness": "#0000CC",
+			"acousticness": "#D7D7ff",
 			"instrumentalness": "#6600CC",
 			"liveness": "#CC00CC",
 			"valence": "#CC0066",
