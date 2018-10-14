@@ -51,7 +51,7 @@
 		<div class="search--result">
 			<div class="artist-result" data-bind="foreach: searchResult" style="width: 100%; padding-top=100px; display: flex; justify-content: space-between;">
 				<div style="display: inline-block; width=300px">
-					<a data-bind="attr: { href: '/chart?artistId=' + artistId + '&artistImage=' + imageUrl }">
+					<a data-bind="attr: { href: '/chart?artistId=' + artistId + '&artistImage=' + imageUrl  + '&artistName=' + artistName }">
 					<img alt="artist image" data-bind="attr: { src: imageUrl }">
 					</a>
 					<h3 data-bind="text: artistName" style="text-align: center;"></h3>
@@ -67,7 +67,7 @@
 		<div class="preSetArtists--container">
 			<!--ko foreach: preSetArtistSelection-->
 			<div class="preSetArtists">
-				<a data-bind="attr: { href: '/chart?artistId=' + artistId + '&artistImage=' + imageUrl }">
+				<a data-bind="attr: { href: '/chart?artistId=' + artistId + '&artistImage=' + imageUrl  + '&artistName=' + artistName }">
 					<img alt="artist image" data-bind="attr: { src: imageUrl }">
 				</a>
 				<h3 data-bind="text: artistName" style="text-align: center;"></h3>
