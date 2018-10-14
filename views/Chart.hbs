@@ -1,7 +1,7 @@
 <header>
  <h1>Spotify API Playground</h1>
 </header>
-    
+    <div class="artist-image"></div>
     <div class="album" id="album">
         <div class="album--cover"></div>
         <div class="album--info">
@@ -10,4 +10,10 @@
         </div>
     </div>
     <canvas id="myChart"></canvas>
-    <script src="scripts/chartFunc.js"></script> 
+    <script src="scripts/chartFunc.js"></script>
+	<script>
+		let artistImage = urlParams.get('artistImage');
+		$('.artist-image').css('background','url('+artistImage+')');
+		$('.artist-image').css('background-position','center');
+		$('.artist-image').css('background-size','cover');
+	</script>

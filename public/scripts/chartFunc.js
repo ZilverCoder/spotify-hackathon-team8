@@ -8,8 +8,6 @@ cloud.width = 150;
 let urlParams = new URLSearchParams(window.location.search);
 let myParam = urlParams.get('artistId');
 
-console.log(myParam);
-
 var allAlbumsArray = [];
 var albumsForChart = {};
 
@@ -174,7 +172,6 @@ $.when(data).done(function(){
 
 
 	for (var feature in colors) {
-		console.log(albumsForChart[feature]);
 		chartDatasets.push({
 			data: albumsForChart[feature],
 			label: feature,

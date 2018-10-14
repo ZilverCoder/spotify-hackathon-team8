@@ -1,9 +1,6 @@
 var searchModel = function(){
 	var self = this;
 	function Artist(artistId, artistName, imageUrl){
-	/*	this.artistId = ko.observable(artistId)
-		this.artistName = ko.observable(artistName);
-		this.imageUrl = ko.observable(imageUrl);*/
 		this.artistId = artistId;
 		this.artistName = artistName;
 		this.imageUrl = imageUrl;
@@ -22,6 +19,11 @@ var searchModel = function(){
 	};
 	self.searchResult = ko.observableArray();
 	self.searchBoxVal = ko.observable();
+	self.preSetArtistSelection = ko.observableArray([new Artist("5pKCCKE2ajJHZ9KAiaK11H", "Rihanna", "https://i.scdn.co/image/e8a018bfd60bf25519fd4dc8ca941263afa66651"), 
+														new Artist("0oSGxfWSnnOXhD2fKuz2Gy", "David Bowie", "https://i.scdn.co/image/76e50c6493a4173e5294374ae88be0ce42ed091e"), 
+														new Artist("3eqjTLE0HfPfh78zjh6TqT", "Bruce Springsteen", "https://i.scdn.co/image/c031183d09ec0708a2e782263877053ecb95f835")]);
+
+	self.showNoResultSection = ko.observable(false);
 
 	self.searchArtists = ko.pureComputed({
 		read: function () {
@@ -39,6 +41,9 @@ var searchModel = function(){
 					result.push(new Artist(artist.id, artist.name, artist.image.url));
 				});
 				console.log(result);
+				if(result[0] == undefined){
+					self.showNoResultSection(true);
+				}
 				self.searchResult(result);
 			});
 		},

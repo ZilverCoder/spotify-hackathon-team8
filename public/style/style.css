@@ -65,6 +65,9 @@ section:first-child button{
 	word-break: break-word;
 }
 
+/*------------------*/
+/*-TOOLTIP STYLING--*/
+/*------------------*/
 #chartjs-tooltip {
 	opacity: 1;
 	position: absolute;
@@ -85,6 +88,9 @@ section:first-child button{
 	margin-right: 10px;
 }
 
+/*------------------*/
+/*----ALBUM ART-----*/
+/*------------------*/
 .album {
 	opacity: 0;
 	position: relative;
@@ -113,3 +119,29 @@ section:first-child button{
   .album--info .info--title {
 	color: #fff;
   }
+
+.noResultSection{
+	padding-top: 30px;
+	text-align: center;
+}
+
+.preSetArtists--container{
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	padding: 10px;
+}
+.preSetArtists:nth-child(2), .preSetArtists:nth-child(3){
+	margin-left: 10px;
+}
+
+/*------------------*/
+/*----CHART---------*/
+/*------------------*/
+
+.artist-image{
+	width: 300px;
+	height: 300px;
+	background-position: center;
+	background-size: cover;
+}
