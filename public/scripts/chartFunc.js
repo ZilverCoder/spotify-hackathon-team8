@@ -130,7 +130,7 @@ $.when(data).done(function(){
 							for (var feature in album.features) {
 								//featureText += icons[feature] + "(" + feature + "): " + 
 								//album.features[feature].toFixed(2) + "\n";
-								subtext.append( "<li>" + icons[feature] + "(" + feature + "): " + 
+								subtext.append( "<li>" + icons[feature] + "(" + featureNames[feature] + "): " + 
 								album.features[feature].toFixed(2) + "</li>");
 								
 								//"<p>Test</p>" 
@@ -218,14 +218,17 @@ $.when(data).done(function(){
  
 	var featureNames = {
 		"danceability": "Dancable",
-		"energy": "Energy",
-		"popularity": "Popularity",
+		"energy": "Energetic",
+		"popularity": "Popular",
 		"mode": "Key",
 		"speechiness": "Talky",
 		"acousticness": "Acustic",
-		"instrumentalness": "Instrumenrtal",
-		"liveness": "Liveness",
-		"valence": "Cheerful",}
+		"instrumentalness": "Instrumental",
+		"liveness": "Live",
+		"valence": "Cheerful",
+		"tempo": "BPM",
+		"loudness": "dB",
+		"key": "Key"}
 
 	for (var feature in colors) {
 		chartDatasets.push({
