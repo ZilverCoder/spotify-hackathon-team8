@@ -16,7 +16,7 @@ var data = $.get(`spotify/get-album-data-for-artist?artistId=${myParam}`, functi
 	/*console.group('%cResponse from /search-track', 'color: #F037A5; font-size: large');
 	console.log(data);
 	console.groupEnd();*/
-
+	console.log("hey");
 	$.each(data, function(index, album){
 		allAlbumsArray.push(new Album(album.releaseDate, album.images, album.features, album.name));
 		for (var feature in album.features) {
@@ -28,7 +28,6 @@ var data = $.get(`spotify/get-album-data-for-artist?artistId=${myParam}`, functi
 			} catch (TypeError) {
 				albumsForChart[feature] = [];
 			}
-				
 			albumsForChart[feature].push(new AlbumForChart(album.releaseDate, album.features[feature], feature));
 		}
 	});

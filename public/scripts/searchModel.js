@@ -23,7 +23,8 @@ var searchModel = function(){
 														new Artist("0oSGxfWSnnOXhD2fKuz2Gy", "David Bowie", "https://i.scdn.co/image/76e50c6493a4173e5294374ae88be0ce42ed091e"), 
 														new Artist("3eqjTLE0HfPfh78zjh6TqT", "Bruce Springsteen", "https://i.scdn.co/image/c031183d09ec0708a2e782263877053ecb95f835")]);
 
-	self.showNoResultSection = ko.observable(false);
+	self.showNoArtistResultSection = ko.observable(false);
+	self.showNoAlbumsResultSection = ko.observable(false);
 
 	self.searchArtists = ko.pureComputed({
 		read: function () {
@@ -42,7 +43,7 @@ var searchModel = function(){
 				});
 				console.log(result);
 				if(result[0] == undefined){
-					self.showNoResultSection(true);
+					self.showNoArtistResultSection(true);
 				}
 				self.searchResult(result);
 			});

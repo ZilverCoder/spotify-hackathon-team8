@@ -131,7 +131,9 @@ app.get('/get-album-data-for-artist', function (request, response) {
 	var dataArray = [];
 
 	function processData(data, delay) {
-		console.log(data.length);
+		if (data.length == 0) {
+			response.send({});
+		}
 		cleanedAlbums = removeSpecialEditions(data);
 		cleanedAlbums.map(function(album, albumCount) {
 
