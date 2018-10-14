@@ -166,6 +166,8 @@ $.when(data).done(function(){
 		"valence": "#CC0066",
 	};
 
+	var shownOnDefault = ["valence", "danceability"];
+
 	var chartDatasets = [];
 
 	for (var feature in albumsForChart) {
@@ -177,7 +179,8 @@ $.when(data).done(function(){
 			pointRadius: 25,
 			borderColor: colors[feature],
 			pointHoverBorderColor: '#000',
-			hitRadius: 15
+			hitRadius: 15,
+			hidden: !shownOnDefault.includes(feature)
 		});
 	}
 	

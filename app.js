@@ -39,7 +39,7 @@ var controllers = {
 
 
 app.get('/', function(req, res, next){
-    res.render('text');
+    res.render('Index');
 });
 
 app.get('/result', function(req, res, next){

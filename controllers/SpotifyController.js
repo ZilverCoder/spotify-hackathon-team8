@@ -76,6 +76,7 @@ app.get('/get-artists-from-name' , function (request, response) {
 				var nrShownItems = 2;
 				if (i === nrShownItems) {
 					response.send(responseData);
+					return;
 				}
 				// more statements
 			}
