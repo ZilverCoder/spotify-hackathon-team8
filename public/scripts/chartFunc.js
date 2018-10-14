@@ -262,8 +262,8 @@ $.when(data).done(function(){
 						beginAtZero: true,
 						min: 0,
 						max: 1,
-						stepSize: 0.5,
-						callback: function(label, index, labels) {
+						stepSize: 0.2,
+						/*callback: function(label, index, labels) {
 							if(label == 0)
 							{
 								return 'No';
@@ -276,7 +276,7 @@ $.when(data).done(function(){
 							{
 								return 'Very';
 							}
-						},
+						},*/
 					},
 				}],
 		
