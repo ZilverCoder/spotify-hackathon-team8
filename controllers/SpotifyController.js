@@ -155,53 +155,56 @@ app.get('/get-album-data-for-artist', function (request, response) {
 								albumInformation.averagedPopularity += trackElement.popularity;
 							}
 						})
-					})}, function(err) {
+					})
+						// get all features for the tracks for this particular album
+						sleep(200);
+						spotifyApi.getAudioFeaturesForTracks(trackIds)
+						.then(function(data) {
+							// for every audio feature
+							data.body.audio_features.forEach(featureElement => {
+								// get the correct song in the albumInformation
+								albumInformation.songs.forEach(songElement => {
+									songElement.features = {};
+									if (featureElement.id == songElement.id) {
+
+										for (var attribute in featureElement) { 
+											songElement.features[attribute] = featureElement[attribute];
+											if (["type", "id", "uri", "track_href", "analysis_url", "duration_ms", "time_signature"].includes(attribute)) {
+												// we want to ignore id, type and so on
+												continue;
+											}
+											if (attribute in albumInformation.features) {
+												albumInformation.features[attribute] += featureElement[attribute];
+											} else {
+												albumInformation.features[attribute] = featureElement[attribute];
+											}
+										} // end var attribute in featureElement
+									} // end if id == id
+								}); // end for each song
+							}); // end for each featureElement
+							albumInformation.features.popularity = albumInformation.averagedPopularity;
+							for (var feature in albumInformation.features) {
+								albumInformation.features[feature] /= album.total_tracks;
+							}
+							// normalise value
+							albumInformation.features.popularity /= 100;
+							
+							responseData[albumInformation.id] = albumInformation;
+							if(++count == cleanedAlbums.length) {
+								console.log("trying to send response!");
+								response.send(responseData);
+								console.log("response sent!");
+								return;
+							}
+						}, function(err) {
+							console.error("getAudioFeaturesForTracks " + err);
+						}); // end getAudioFeatures
+				
+				}, function(err) {
 						console.error("getTracks" + err);
 				});
 				
-				// get all features for the tracks for this particular album
-				sleep(200);
-				spotifyApi.getAudioFeaturesForTracks(trackIds)
-				.then(function(data) {
-					// for every audio feature
-					data.body.audio_features.forEach(featureElement => {
-						// get the correct song in the albumInformation
-						albumInformation.songs.forEach(songElement => {
-							songElement.features = {};
-							if (featureElement.id == songElement.id) {
-
-								for (var attribute in featureElement) { 
-									songElement.features[attribute] = featureElement[attribute];
-									if (["type", "id", "uri", "track_href", "analysis_url", "duration_ms", "time_signature"].includes(attribute)) {
-										// we want to ignore id, type and so on
-										continue;
-									}
-									if (attribute in albumInformation.features) {
-										albumInformation.features[attribute] += featureElement[attribute];
-									} else {
-										albumInformation.features[attribute] = featureElement[attribute];
-									}
-								} // end var attribute in featureElement
-							} // end if id == id
-						}); // end for each song
-					}); // end for each featureElement
-					albumInformation.features.popularity = albumInformation.averagedPopularity;
-					for (var feature in albumInformation.features) {
-						albumInformation.features[feature] /= album.total_tracks;
-					}
-					// normalise value
-					albumInformation.features.popularity /= 100;
-					
-					responseData[albumInformation.id] = albumInformation;
-					if(++count == cleanedAlbums.length) {
-						console.log("trying to send response!");
-						response.send(responseData);
-						console.log("response sent!");
-						return;
-					}
-				}, function(err) {
-					console.error("getAudioFeaturesForTracks " + err);
-				}); // end getAudioFeatures
+				
 				
 			}, function(err) {
 				console.error("getAlbumTracks" + err);
