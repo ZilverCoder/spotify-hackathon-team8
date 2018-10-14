@@ -212,13 +212,24 @@ $.when(data).done(function(){
 	var shownOnDefault = ["valence", "acousticness"];
 
 	var chartDatasets = [];
+ 
 
+	var featureNames = {
+		"danceability": "Dancable",
+		"energy": "Energy",
+		"popularity": "Popularity",
+		"mode": "Key",
+		"speechiness": "Talky",
+		"acousticness": "Acustic",
+		"instrumentalness": "Instrumenrtal",
+		"liveness": "Liveness",
+		"valence": "Cheerful",}
 
 
 	for (var feature in colors) {
 		chartDatasets.push({
 			data: albumsForChart[feature],
-			label: feature,
+			label: featureNames[feature],
 			backgroundColor: 'rgba(255, 255, 255, 0)',
 			pointRadius: 10,
 			borderColor: colors[feature],
