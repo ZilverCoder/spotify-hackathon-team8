@@ -35,9 +35,9 @@ var searchModel = function(){
 				// "Data" is the object we get from the API. See server.js for the function that returns it.
 				
 				result = []
-				console.group('%cResponse from /get-artist-from-name', 'color: #F037A5; font-size: large');
-				console.table(data);
-				console.groupEnd();
+				//console.group('%cResponse from /get-artist-from-name', 'color: #F037A5; font-size: large');
+				//console.table(data);
+				//console.groupEnd();
 				data.forEach( artist => {
 					result.push(new Artist(artist.id, artist.name, artist.image.url));
 				});
