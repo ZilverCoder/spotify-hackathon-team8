@@ -15,7 +15,7 @@
 	}
 	#outer{
 		margin: auto;
-		display: flex;
+		margin-top: 0;
 		height:90vh;
 		width:70vw;
 	}
@@ -98,8 +98,8 @@ section:first-child button{
 /*------------------*/
 .artist-container{
 	display: flex;
-	min-width: 900px;
-	height: 400px;
+	flex-direction: column;
+	max-width: 300px;
 }
 
 .artist-image{
@@ -108,12 +108,13 @@ section:first-child button{
 }
 #album{
 	display: flex;
-	width: 60%;
+	flex-direction: column;
+	width: 100%;
 }
 
 .cover-container{
-	width: 50%;
-	height: 100%;
+	width: 100%;
+	height: 50%;
 }
 
 .album--cover{
@@ -161,6 +162,11 @@ section:first-child button{
 /*------------------*/
 /*----CHART---------*/
 /*------------------*/
+
+.information-container{
+	display: flex;
+	flex-direction: row;
+}
 
 .artist-image{
 	width: 300px;
