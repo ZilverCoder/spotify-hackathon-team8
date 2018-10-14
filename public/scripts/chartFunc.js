@@ -284,4 +284,6 @@ $.when(data).done(function(){
 			}
 		}	
 	});
+
+	$( "#loading" ).hide();
 });
