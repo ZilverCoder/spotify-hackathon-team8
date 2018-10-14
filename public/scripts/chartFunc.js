@@ -58,6 +58,21 @@ function AlbumForChart(year, feature, label){
 	this.label = label;
 }
 
+var icons = {
+	"danceability": "💃🏽",
+	"energy": "⚡",
+	"popularity": "⭐",
+	"mode": "🎶",
+	"speechiness": "🗨️",
+	"acousticness": "🎻",
+	"instrumentalness": "🎸",
+	"liveness": "🎤",
+	"valence": "😊",
+	"tempo": "🥁",
+	"loudness": "🔊",
+	"key": "🔑"
+}
+
 $.when(data).done(function(){
 	//#region Custom Tooltip
 		var customTooltips = function(tooltip) {
@@ -106,8 +121,11 @@ $.when(data).done(function(){
 							$('.album--cover').css('background-origin','content-box');
 							$('.album--cover').css('background-size','cover');
 							var featureText = "";
+							if (album.features.popularity < 1 ) {
+								album.features.popularity *= 100;
+							}
 							for (var feature in album.features) {
-								featureText += feature + ": " + album.features[feature].toFixed(2) + "\n";
+								featureText += icons[feature] + "(" + feature + "): " + album.features[feature].toFixed(2) + "\n";
 							}
 							subtext.text(featureText);
 						}
