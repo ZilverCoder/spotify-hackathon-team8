@@ -118,9 +118,9 @@ $.when(data).done(function(){
 						
 						if (album.year == tooltip.title) {
 							albumTitle.empty();
-							albumTitle.append(album.title);
-							albumTitle.append("<br>");
-							albumTitle.append(album.year);
+							albumTitle.append(album.title)
+										.append("<br>")
+										.append(album.year);
 							$('.album--cover').css('background','url('+album.imageObj.src+')');
 							$('.album--cover').css('background-origin','content-box');
 							$('.album--cover').css('background-size','cover');
@@ -295,6 +295,7 @@ $.when(data).done(function(){
 	});
 
 	$( "#loading" ).hide();
+	$("#returnHome").show();
 	if (chartDatasets[0].data.length == 0) {
 		$( "#noalbums" ).show();
 		$( "#myChart" ).hide();

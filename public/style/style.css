@@ -186,3 +186,8 @@ section:first-child button{
 	color:#F037A5;
 	margin-left: -20px;
 }
+
+#returnHome{
+	display: none;
+	float: right;
+}
