@@ -13,6 +13,7 @@
     "body-parser": "^1.18.3",
     "chart.js": "^2.7.2",
     "compression": "^1.7.3",
+    "cookie-parser": "^1.4.3",
     "dotenv": "^6.1.0",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.0",
@@ -20,7 +21,8 @@
     "knockout": "^3.4.2",
     "moment": "^2.22.2",
     "path": "^0.12.7",
-    "spotify-web-api-node": "^4.0.0"
+    "spotify-web-api-node": "^4.0.0",
+    "store": "^2.0.12"
   },
   "devDependencies": {
     "nodemon": "^1.18.4"

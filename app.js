@@ -1,6 +1,7 @@
 var express = require('express'),
 	path = require('path');
 	exphbs = require('express-handlebars'),
+	cookieParser = require('cookie-parser'),
 	compression = require('compression'),
 	bodyParser = require('body-parser');
 	require('dotenv').config();
@@ -20,7 +21,7 @@ app.set('view engine', 'hbs');
 app.set('Views', path.join(__dirname, 'views'));
 
 app.use(compression());
-//app.use(cookieParser());
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
