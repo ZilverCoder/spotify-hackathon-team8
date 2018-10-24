@@ -92,7 +92,7 @@ $.when(data).done(function(){
 
 			// Hide if no tooltip
 			if (tooltip.opacity === 0) {
-				tooltipEl.style.opacity = 0;
+				$('#album').hide();
 				return;
 			}
 
@@ -134,8 +134,6 @@ $.when(data).done(function(){
 								//album.features[feature].toFixed(2) + "\n";
 								subtext.append( "<li>" + icons[feature] + "(" + featureNames[feature] + "): " + 
 								album.features[feature].toFixed(2) + "</li>");
-								
-								//"<p>Test</p>" 
 							}							
 							//subtext.text(featureText);
 						}
@@ -153,7 +151,9 @@ $.when(data).done(function(){
 			var positionX = this._chart.canvas.offsetLeft;
 
 			// Display, position, and set styles for font
-			tooltipEl.style.opacity = 1;
+			$('#album').show();
+			$("#artist-image-header").hide();
+			//tooltipEl.style.display = "none";
 			//tooltipEl.style.left = positionX + tooltip.caretX - 100 + 'px';
 			//tooltipEl.style.top = positionY + tooltip.caretY + 'px';
 			//tooltipEl.style.fontFamily = tooltip._bodyFontFamily;
