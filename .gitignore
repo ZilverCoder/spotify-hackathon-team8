@@ -1,5 +1,8 @@
 #Ignore env files
-.env
+*.env
+*.dev
+.DS_STORE
 #Ignore node_modules
-/node_modules 
+node_modules 
+npm-debug.log
 /.vscode
