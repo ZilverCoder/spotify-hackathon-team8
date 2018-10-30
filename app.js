@@ -7,6 +7,7 @@ var express = require('express'),
 	require('dotenv').config();
 	
 var app = express();
+const PORT = process.env.PORT || 5000;
 
 
 var handlebars = exphbs.create({
@@ -57,4 +58,4 @@ app.use('/chart', controllers.ChartController);
 //-------------------------------------------------------------//
 
 
-app.listen(3000);
+app.listen(PORT, () => console.log(`We live bitches~ on ${PORT}`));
